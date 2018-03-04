@@ -7,7 +7,7 @@
 }
 
 ::selection {
-	background-color: $accent;
+	background-color: $main-color;
 	color: #fff;
 }
 
@@ -46,5 +46,6 @@ body {
 .text-center {
 	text-align: center;
 }
+
 
 @import "media"; // Always at the end
