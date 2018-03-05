@@ -2,6 +2,7 @@
 @import "fonts";
 @import "libs";
 
+
 ::placeholder {
 	color: #666;
 }
@@ -37,6 +38,16 @@ body {
 			}
 }
 
+h1, 
+h2, 
+h3,
+h4,
+h5,
+h6 {
+	font-family: RobotoCondensed;
+	font-weight: bold;
+}
+
 .img-responsive {
 	display: block;
 	max-width: 100%;
@@ -46,6 +57,44 @@ body {
 .text-center {
 	text-align: center;
 }
+
+.hidden {
+	display: none;
+}
+
+.button {
+	position: relative;
+	font-family: RobotoCondensed;
+	font-size: em(15px);
+	display: inline-block;
+	background: $main-color;
+	padding: 11px 23px;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: bold;
+	color: #fff;
+	border: 1px solid darken($main-color, 7%);
+	border-radius: 3px;
+
+	@include mt(.5s);
+
+	&:hover {
+		color: #fff;
+		text-decoration: none;
+		background-color: darken($main-color, 5%);
+	}
+}
+
+.btn-orange {
+	background: $accent-color;
+	border: 1px solid darken($accent-color, 6%);
+
+	&:hover {
+		background-color: darken($accent-color, 5%);
+	}
+}
+
+@import "header";
 
 
 @import "media"; // Always at the end

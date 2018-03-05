@@ -10,3 +10,7 @@ $gutter: $grid-gutter-width;
 
 $main-color: #6191a4;
 $accent-color: #d7836a;
+
+@mixin mt($time) {
+	transition: all $time ease;
+}

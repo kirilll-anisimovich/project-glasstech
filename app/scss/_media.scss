@@ -6,16 +6,107 @@
 @include media-breakpoint-down(xl);
 
 //Large: ≥992px
-@include media-breakpoint-down(lg);
+@include media-breakpoint-down(lg) {
+	.site-header .utp-wrapper h2 {
+		font-size: em(32px);
+	}
+
+	.site-header .utp-wrapper h3 {
+		font-size: em(24px);
+	}
+};
 
 //Medium: ≥768px
-@include media-breakpoint-down(md);
+@include media-breakpoint-down(md) {
+	.site-nav {
+		position: absolute;
+		top: 85px;
+		right: 10px;
+		max-width: 320px;
+		background-color: $main-color;
+		opacity: .95;
+		border: 1px solid darken($main-color, 5);
+
+		> ul {
+
+			> li {
+				display: block;
+				width: 320px;
+
+				> a {
+					color: #fff;
+					border-bottom: 1px solid darken($main-color, 5);
+
+					&:hover {
+						color: #fff;
+						background-color: darken($main-color, 5);
+					}
+				}
+			} 
+		}
+	}
+
+	.site-header {
+		min-height: 100vh;
+		height: auto;
+	}
+
+	.site-header .utp-wrapper h2 {
+		font-size: em(28px);
+		text-align: center;
+	}
+
+	.site-header .utp-wrapper h3 {
+		font-size: em(20px);
+		text-align: center;
+	}
+
+	.site-header .utp-wrapper {
+		margin-top: 50px;
+		margin-bottom: 50px;
+		text-align: center;
+	}
+
+	.site-header .utp-wrapper a {
+		margin-bottom: 10px;
+	}
+
+	.site-header .contact-form {
+		margin-bottom: 50px;
+	}
+};
 
 //Small: ≥576px
-@include media-breakpoint-down(sm);
+@include media-breakpoint-down(sm) {
+	.logo {
+		width: 100px;
+		padding: 14px 0;
+	}
+
+	.phone-wrap {
+		padding: 14px 0;
+		line-height: em(12px);
+
+		.phone {
+			font-size: em(13px);
+		}
+
+		.callback {
+			font-size: em(10px);
+		}
+	}
+
+	.toggle-mnu {
+		margin-top: 28px;
+	}
+
+	
+};
 
 //Extra small: >0
-@include media-breakpoint-down(xs);
+@include media-breakpoint-down(xs){
+	
+};
 
 /*==========  Mobile First  ========== */
 
@@ -29,7 +120,16 @@
 @include media-breakpoint-up(md);
 
 //Large: ≤992px
-@include media-breakpoint-up(lg);
+@include media-breakpoint-up(lg) {
+	.site-nav {
+		display: block !important;
+	}
+
+	.toggle-mnu {
+		display: none;
+	}
+};
+	
 
 //Extra large: ≤1200px
 @include media-breakpoint-up(xl);
