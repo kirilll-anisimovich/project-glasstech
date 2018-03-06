@@ -2,11 +2,16 @@ var gulp          = require('gulp'),
 		gutil         = require('gulp-util' ),
 		sass          = require('gulp-sass'),
 		browsersync   = require('browser-sync'),
+		replace       = require('gulp-replace');
+		fileinclude    = require('gulp-file-include');
 		concat        = require('gulp-concat'),
 		uglify        = require('gulp-uglify'),
 		cleancss      = require('gulp-clean-css'),
 		rename        = require('gulp-rename'),
 		autoprefixer  = require('gulp-autoprefixer'),
+		cheerio       = require('gulp-cheerio'),
+		svgstore      = require('gulp-svgstore'),
+		svgmin        = require('gulp-svgmin'),
 		notify        = require("gulp-notify"),
 		rsync         = require('gulp-rsync');
 
@@ -20,6 +25,17 @@ gulp.task('browser-sync', function() {
 		// tunnel: true,
 		// tunnel: "projectmane", //Demonstration page: http://projectmane.localtunnel.me
 	})
+});
+
+gulp.task('html', function() {
+  return gulp.src('app/*.html')                  // какие файлы обрабатывать (путь из константы, маска имени)
+    .pipe(fileinclude({                                     // обрабатываем gulp-file-include
+      prefix: '@@',
+      basepath: '@file',
+      indent: true,
+    }))
+    .pipe(replace(/\n\s*<!--DEV[\s\S]+?-->/gm, ''))         // убираем комментарии <!--DEV ... -->
+    .pipe(gulp.dest('app'));                           // записываем файлы (путь из константы)
 });
 
 gulp.task('sass', function() {
@@ -44,6 +60,34 @@ gulp.task('js', function() {
 	.pipe(browsersync.reload({ stream: true }))
 });
 
+// ЗАДАЧА: Сборка SVG-спрайта
+gulp.task('svgstore', function (callback) {
+  let spritePath = 'app/img/svg-sprite'; // константа с путем к исходникам SVG-спрайта
+  if(fileExist(spritePath) !== false) {
+    return gulp.src(spritePath + '/*.svg')                   // берем только SVG файлы из этой папки, подпапки игнорируем
+      // .pipe(plumber({ errorHandler: onError }))
+      .pipe(svgmin(function (file) {
+        return {
+          plugins: [{
+            cleanupIDs: {
+              minify: true
+            }
+          }]
+        }
+      }))
+      .pipe(svgstore({ inlineSvg: true }))
+      .pipe(cheerio(function ($) {
+        $('svg').attr('style',  'display:none');             // дописываем получающемуся SVG-спрайту инлайновое сокрытие
+      }))
+      .pipe(rename('sprite-svg.svg'))
+      .pipe(gulp.dest('app/img'));
+  }
+  else {
+    console.log('Нет файлов для сборки SVG-спрайта');
+    callback();
+  }
+});
+
 gulp.task('rsync', function() {
 	return gulp.src('app/**')
 	.pipe(rsync({
@@ -59,10 +103,23 @@ gulp.task('rsync', function() {
 	}))
 });
 
-gulp.task('watch', ['sass', 'js', 'browser-sync'], function() {
+gulp.task('watch', ['html','sass', 'js', 'svgstore', 'browser-sync'], function() {
 	gulp.watch('app/scss/**/*.scss', ['sass']);
 	gulp.watch(['libs/**/*.js', 'app/js/common.js'], ['js']);
+	gulp.watch('app/img/svg-sprite/*.svg', ['svgstore']);
 	gulp.watch('app/*.html', browsersync.reload)
 });
 
 gulp.task('default', ['watch']);
+
+
+
+// Проверка существования файла/папки
+function fileExist(path) {
+  const fs = require('fs');
+  try {
+    fs.statSync(path);
+  } catch(err) {
+    return !(err && err.code === 'ENOENT');
+  }
+}
