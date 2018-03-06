@@ -98,6 +98,28 @@ section {
 	}
 }
 
+.advantages {
+	padding: 50px 0 0 0;
+	background: #f6f6f6;
+}
+
+.adv-item {
+	text-align: center;
+	margin-bottom: 50px;
+	
+	svg {
+		width: 100px;
+		height: 100px;
+	}
+
+	p {
+		margin: 0;
+		padding: 0;
+		margin-top: 10px;
+		line-height: em(18px);
+	}
+}
+
 
 
 @import "header";

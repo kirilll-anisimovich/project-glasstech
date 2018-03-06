@@ -105,7 +105,14 @@
 
 //Extra small: >0
 @include media-breakpoint-down(xs){
-	
+	.adv-item svg {
+		width: 80px;
+		height: 80px;
+	}
+
+	.adv-item p {
+		font-size: em(14px);
+	}
 };
 
 /*==========  Mobile First  ========== */
