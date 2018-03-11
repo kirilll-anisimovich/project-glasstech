@@ -3,7 +3,8 @@
 	width: 100%;
 	z-index: 5;
 	background-color: #fff;
-	border-bottom: 3px solid $accent-color;
+	border-bottom: 1px solid #ccc;
+	box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.12);
 }
 
 .logo {
@@ -20,7 +21,7 @@
 .site-nav {
 	display: none;
 	font-family: RobotoCondensed;
-	text-align: center;
+	text-align: right;
 	white-space: nowrap;
 	
 	> ul {
@@ -138,7 +139,7 @@
 
 .site-header {
 	position: relative;
-	min-height: 700px;
+	min-height: 600px;
 	height: 100vh;
 	padding-top: 75px;
 	background-color: #cecece;
@@ -147,16 +148,7 @@
 	background-position: top center;
 	background-attachment: fixed;
 
-	&::after {
-		content: "";
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 100%;
-		background-color: darken($main-color, 35%);
-		opacity: .8;
-		z-index: 0;
-	}
+	@include ovrly;
 
 	.container, .row {
 		height: 100%;
@@ -188,6 +180,10 @@
 	background-color: $main-color;
 	border-top: 7px solid $accent-color;
 	border-radius: 4px;
+	max-width: 370px;
+	margin: 0 auto;
+
+	transition: all 5s fade-in;
 
 	h3 {
 		text-align: center;
@@ -228,3 +224,19 @@
 	margin: auto;
 }
 
+.button-down {
+	display: block;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	bottom: 40px;
+	left: 50%;
+	margin-left: -20px;
+	z-index: 2;
+	animation-delay: 0.7s;
+
+	svg {
+		height: 100%;
+		width: 100%;
+	}
+}

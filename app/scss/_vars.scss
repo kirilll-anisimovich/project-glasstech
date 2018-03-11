@@ -14,3 +14,16 @@ $accent-color: #d7836a;
 @mixin mt($time) {
 	transition: all $time ease;
 }
+
+@mixin ovrly {
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		background-color: darken($main-color, 35%);
+		opacity: .8;
+		z-index: 0;
+	}
+}

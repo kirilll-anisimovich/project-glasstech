@@ -1,6 +1,6 @@
 {
   "name": "project-glass",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "my glass landing",
   "main": "index.js",
   "scripts": {
